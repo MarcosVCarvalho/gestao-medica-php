@@ -15,4 +15,22 @@ class Consulta {
         private float $valor
     ) {}
 
+    //Getters
+    public function recuperarMedico(): Medico 
+    {
+        return $this->medico;
+    }
+    public function recuperarPaciente(): Paciente
+    {
+        return $this->paciente;
+    }
+    public function recuperarData(): DateTimeImmutable
+    {
+        return $this->data;
+    }
+    public function recuperarValor(): float
+    {
+        return $this->valor;
+    }
+
 }

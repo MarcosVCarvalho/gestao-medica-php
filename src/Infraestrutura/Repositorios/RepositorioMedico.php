@@ -77,7 +77,9 @@ class RepositorioMedico implements RepositorioMedicoInterface
     }
 
     public function recuperar(Medico $medico): bool
-    {}
+    { 
+        return true;
+    }
 
     public function hidratacao(PDOStatement $stmt): array
     {
