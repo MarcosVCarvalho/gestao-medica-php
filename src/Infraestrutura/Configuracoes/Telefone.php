@@ -1,6 +1,7 @@
 <?php
 
 namespace Luizlins\Projeto01\Infraestrutura\Configuracoes;
+use Exception;
 
 class Telefone
 {

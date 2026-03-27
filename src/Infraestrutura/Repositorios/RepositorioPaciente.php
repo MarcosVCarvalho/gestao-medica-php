@@ -7,6 +7,7 @@ use Luizlins\Projeto01\Dominio\Repositorio\RepositorioPacienteInterface;
 use Luizlins\Projeto01\Infraestrutura\Persistencia\FabricaConexao;
 use Luizlins\Projeto01\Infraestrutura\Configuracoes\CPF;
 use Luizlins\Projeto01\Infraestrutura\Configuracoes\Telefone;
+use DateTimeImmutable;
 use PDO;
 use PDOStatement;
 
@@ -43,7 +44,7 @@ class RepositorioPaciente implements RepositorioPacienteInterface{
             ':cpf' => $paciente->recuperarcpf()->recuperarNumero(),
             ':nome' => $paciente->recuperarNome(),
             ':telefone' => $paciente->recuperarTelefone()->recuperarNumero(),
-            ':dataNascimento' => $paciente->recuperarDataNascimento(),
+            ':dataNascimento' => $paciente->recuperarDataNascimento()->format('Y-m-d H:i:s'),
         ]);
 
         $paciente->definirId($this->conexao->lastInsertId());
@@ -79,10 +80,33 @@ class RepositorioPaciente implements RepositorioPacienteInterface{
         return $stmt->execute();
     }
 
-    public function recuperar(Paciente $paciente): bool
-    {
-        return true;
+    public function recuperar(int $id): ?Paciente
+{
+    $sql = "SELECT * FROM pacientes WHERE id = :id";
+    $stmt = $this->conexao->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Verificar se existe
+    if (!$dados) {
+        return null;
     }
+
+    $paciente = new Paciente(
+        $dados['id'],
+        new CPF($dados['cpf']),
+        $dados['nome'],
+        new Telefone($dados['telefone']),
+        new DateTimeImmutable($dados['dataNascimento'])
+    );
+
+    $paciente->definirId($dados['id']);
+
+    return $paciente;
+    }
+    
 
     public function hidratacao(PDOStatement $stmt): array
     {

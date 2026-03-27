@@ -6,19 +6,21 @@ use Luizlins\Projeto01\Infraestrutura\Repositorios\RepositorioPaciente;
 use Luizlins\Projeto01\Infraestrutura\Configuracoes\CPF;
 use Luizlins\Projeto01\Infraestrutura\Configuracoes\Telefone;
 
-require_once "vendor/autoload.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $pdo = FabricaConexao::criarConexao();
 
+//crindo um paciente
 $cpf = new CPF("227.418.874-20");
 $telefone = new Telefone("(88) 98454-5019");
+$data = new DateTimeImmutable("2006-04-21");
 
 $paciente = new Paciente(
     null, 
     $cpf,
     "Ana Julia",
     $telefone,
-    "2006-04-21");
+    $data);
 
 $pdoPaciente = new RepositorioPaciente();
 $resposta = $pdoPaciente->inserir($paciente);

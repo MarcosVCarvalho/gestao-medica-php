@@ -13,7 +13,7 @@ class Paciente {
         private CPF $cpf,
         private string $nome,
         private Telefone $telefone,
-        private string $dataNascimento
+        private DateTimeImmutable $dataNascimento
     ) {}
 
     //Getters
@@ -32,7 +32,7 @@ class Paciente {
     {
         return $this->telefone;
     }
-    public function recuperarDataNascimento(): string 
+    public function recuperarDataNascimento(): DateTimeImmutable
     {
         return $this->dataNascimento;
     }

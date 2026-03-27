@@ -6,9 +6,9 @@ $pdo = new PDO("sqlite:$caminhoBanco");
 $pdo->exec("
     CREATE TABLE pacientes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        cpf TEXT,
-        nome TEXT,
-        telefone TEXT,
-        dataNascimento TEXT
+        cpf TEXT NOT NULL,
+        nome TEXT NOT NULL,
+        telefone TEXT NOT NULL,
+        dataNascimento TEXT NOT NULL
     );
 ");

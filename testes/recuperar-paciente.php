@@ -1,11 +1,10 @@
 <?php
 
-use Luizlins\Projeto01\Dominio\Modulos\Paciente;
 use Luizlins\Projeto01\Infraestrutura\Repositorios\RepositorioPaciente;
 
-require_once "vendor/autoload.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $pdoPaciente = new RepositorioPaciente();
-$resposta = $pdoPaciente->listar();
+$resposta = $pdoPaciente->recuperar(1);
 
 var_dump($resposta);

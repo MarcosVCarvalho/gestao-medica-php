@@ -6,9 +6,9 @@ class Medico {
 
     function __construct(
         private ?int $id,
-        private string $crm,
-        private string $nome,
-        private string $especialidade
+        private ?string $crm,
+        private ?string $nome,
+        private ?string $especialidade
     ) {}
 
     public function recuperarId(): null|int

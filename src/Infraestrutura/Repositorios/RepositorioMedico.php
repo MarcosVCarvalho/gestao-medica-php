@@ -15,7 +15,6 @@ class RepositorioMedico implements RepositorioMedicoInterface
     public function __construct()
     {
         $this->conexao = FabricaConexao::criarConexao();
-
     }
 
     public function listar(): array
@@ -76,9 +75,23 @@ class RepositorioMedico implements RepositorioMedicoInterface
         return $stmt->execute();
     }
 
-    public function recuperar(Medico $medico): bool
+    public function recuperar(Medico $medico): ?Medico
     { 
-        return true;
+        //pegar o id do medico
+        $id = $medico->recuperarId();
+
+        $sqlQuery = "SELECT * FROM medicos where id = $id;";
+        $stmt = $this->conexao->prepare($sqlQuery);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        //validar a busca
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($resultado){
+            return new Medico($resultado["id"], $resultado["crm"],$resultado["nome"],$resultado["especialidade"]);
+        } else {
+            return null;
+        }
     }
 
     public function hidratacao(PDOStatement $stmt): array
@@ -91,10 +104,10 @@ class RepositorioMedico implements RepositorioMedicoInterface
                 $medico['id'],
                 $medico['crm'],
                 $medico['nome'],
-                $medico['especialidade'],
+                $medico['especialidade']
             );
         }
-
         return $listaMedicos;
     }
+
 }

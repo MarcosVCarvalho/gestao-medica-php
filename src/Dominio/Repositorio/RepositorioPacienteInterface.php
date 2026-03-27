@@ -9,5 +9,5 @@ interface RepositorioPacienteInterface{
     public function inserir(Paciente $paciente): bool;
     public function deletar(Paciente $paciente): bool;
     public function atualizar(Paciente $paciente);
-    public function recuperar(Paciente $paciente);
+    public function recuperar(int $id): ?Paciente;
 }

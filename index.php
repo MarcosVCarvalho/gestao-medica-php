@@ -1,26 +1,30 @@
 <?php
 
-use Luizlins\Projeto01\Modulos\Medico;
-use Luizlins\Projeto01\Modulos\Paciente;
-use Luizlins\Projeto01\Modulos\Consulta;
-use Luizlins\Projeto01\Configuracoes\Telefone;
+use Luizlins\Projeto01\Dominio\Modulos\Medico;
+use Luizlins\Projeto01\Dominio\Modulos\Paciente;
+use Luizlins\Projeto01\Dominio\Modulos\Consulta;
+use Luizlins\Projeto01\Infraestrutura\Configuracoes\CPF;
+use Luizlins\Projeto01\Infraestrutura\Configuracoes\Telefone;
 
 require_once "./vendor/autoload.php";
 
 $medico = new Medico(
+    null,
     "CRM/PI 24546",
     "Luiz Lins",
     "Oftomologista"
 );
 
 $telefone = new Telefone("86999920976");
+$cpf = new CPF("006 237 863 54");
+$data = new DateTimeImmutable("2006-04-21");
 
-$dataNascimento = new DateTimeImmutable("1985-10-27");
 $paciente = new Paciente(
-    "006 237 863 54",
+    null,
+    $cpf,
     "Maria Antonia",
-    [$telefone, $telefone, $telefone, $telefone],
-    $dataNascimento
+    $telefone,
+    $data
 );
 
 $dataConsulta = new DateTimeImmutable("2026-03-01 13:00"); 

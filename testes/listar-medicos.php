@@ -3,11 +3,9 @@
 use Luizlins\Projeto01\Dominio\Modulos\Medico;
 use Luizlins\Projeto01\Infraestrutura\Repositorios\RepositorioMedico;
 
-require_once "vendor/autoload.php";
-
-$medico = new Medico(1, "CRM/PI 1111", "Antonio Carlos", "Otorrino");
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $pdoMedico = new RepositorioMedico();
-$resposta = $pdoMedico->deletar($medico);
+$resposta = $pdoMedico->listar();
 
 var_dump($resposta);
